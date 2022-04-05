@@ -39,7 +39,7 @@ export default {
     })
     this.date = M.Datepicker.init(this.$refs.datepicker,{
       format: 'dd.mm.yyyy',
-      defaultDate: new Date(),
+      // defaultDate: new Date(),
       setDefaultDate: true
     });
   },
@@ -53,7 +53,8 @@ export default {
         tags: this.chips.chipsData,
         date: this.date.date
       }
-      console.log(task);
+      this.$store.dispatch('createTask', task)
+      this.$router.push('/list')
     }
   },
   destroyed(){
