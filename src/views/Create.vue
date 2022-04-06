@@ -39,7 +39,7 @@ export default {
     })
     this.date = M.Datepicker.init(this.$refs.datepicker,{
       format: 'dd.mm.yyyy',
-      // defaultDate: new Date(),
+      defaultDate: new Date(),
       setDefaultDate: true
     });
   },
