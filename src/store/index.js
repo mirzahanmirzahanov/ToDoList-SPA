@@ -5,6 +5,7 @@ export default createStore({
     tasks: JSON.parse(localStorage.getItem('tasks') || '[]')
   },
   getters: {
+    tasks: s => s.tasks
   },
   mutations: {
     createTask(state, task) {
