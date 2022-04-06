@@ -1,9 +1,8 @@
 <template>
 	<div class="row">
 		<div v-if="task" class="col s6 offset-s3">
-			<h2>{{task.title}}</h2>
+			<h2>{{ task.title }}</h2>
 			<form @submit.prevent="taskUpdate">
-
 				<div class="chips" ref="chips"></div>
 				<div class="input-field">
 					<textarea
@@ -20,8 +19,13 @@
 					>{{ description.length }}/2048</span>
 				</div>
 				<input type="text" class="datepicker" ref="datepicker" />
-				<button class="btn" type="submit" style="margin-right: 10px;">Update</button>
-				<button class="btn blue" type="button">Complite task</button>
+				<div>
+					<div v-if="task.status !== 'complited'">
+						<button class="btn" type="submit">Update</button>
+						<button @click="compliteTask" class="btn blue" type="button">Complite task</button>
+					</div>
+					<button v-else @click="goToList" class="btn blue" type="button">Back</button>
+				</div>
 			</form>
 		</div>
 		<h1 v-else>Task not found</h1>
@@ -58,12 +62,19 @@ export default {
 	},
 	methods: {
 		taskUpdate() {
-			
-			this.$store.dispatch('updateTask',{
+
+			this.$store.dispatch('updateTask', {
 				id: this.task.id,
 				description: this.description,
 				date: this.date.date
 			})
+			this.$router.push('/list')
+		},
+		compliteTask() {
+			this.$store.dispatch('compliteTask', this.task.id)
+			this.$router.push('/list')
+		},
+		goToList() {
 			this.$router.push('/list')
 		}
 	},
@@ -78,5 +89,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+button {
+	margin-right: 10px;
+}
 </style>
+
